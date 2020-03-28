@@ -5,22 +5,18 @@ on:
     - master
 jobs:
   test:
-    name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
-
-    runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
-        node: [8, 10, 12]
+        node-version: [8, 10, 12]
         os: [ubuntu-latest, macOS-latest, windows-latest]
-   steps:
-      - uses: actions/checkout@v1
-      - name: Use node ${{ matrix.node }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-          registry-url: https://registry.npmjs.org
-      - name: Install packages
-        run: npm install
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install Packages
+      run: npm install
     - name: Run tests
       run: ($env:CI = "true") -and (npm test)
