@@ -19,7 +19,6 @@ jobs:
     - name: Install Packages
       run: npm install
     - name: Run tests
-      if: ruuner.os == 'macOS-latest' || runner.os == 'ubuntu-latest'
-        run: CI=true npm test
-      if: runner.os == 'windows-latest'
-        run: ($env:CI = "true") -and (npm test)
+      run: npm test
+      env: 
+        CI: true
