@@ -18,4 +18,4 @@ jobs:
     - name: Install Packages
       run: npm install
     - name: Run tests
-      run: npm test
+      run: ($env:CI = "true") -and (npm test)
